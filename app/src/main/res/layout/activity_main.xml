@@ -28,7 +28,7 @@
         android:background="@color/colorAccent">
 
         <TextView
-            android:text="Hi 2"
+            android:text="Hi Main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView2"
