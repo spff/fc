@@ -33,8 +33,8 @@ public class Fragment1 extends Fragment {
             @Override
             public void onClick(View v)
             {
-                TextView tv1 = (TextView)view.findViewById(R.id.textView1);
-                tv1.setText("Hello");
+                //((MainActivity)getActivity()).testClick(view);
+
                 ((MainActivity)getActivity()).switchFragment(2);
             }
         });

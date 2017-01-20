@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -21,9 +22,14 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
+    public  void  testClick(View view){
+        TextView tv1 = (TextView)view.findViewById(R.id.textView1);
+        tv1.setText("Hello");
 
+    }
     public  void  switchFragment(int destFrag){
         transaction = manager.beginTransaction();
+
         switch (destFrag) {
             case 1:
                 Fragment1 fragment1 = new Fragment1();
