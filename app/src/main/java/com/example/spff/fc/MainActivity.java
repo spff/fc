@@ -21,6 +21,26 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
+
+    public  void  switchFragment(int destFrag){
+        transaction = manager.beginTransaction();
+        switch (destFrag) {
+            case 1:
+                Fragment1 fragment1 = new Fragment1();
+                transaction.replace(R.id.center, fragment1, "fragment1");
+
+                break;
+            case 2:
+                Fragment2 fragment2 = new Fragment2();
+                transaction.replace(R.id.center, fragment2, "fragment2");
+                break;
+
+        }
+//呼叫commit讓變更生效。
+        transaction.commit();
+    }
+
+
     //換頁的按鈕設定
     public void onClick(View view) {
 //透過下方程式碼，取得Activity中執行的個體。
