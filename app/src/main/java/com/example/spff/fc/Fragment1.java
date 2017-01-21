@@ -3,6 +3,8 @@ package com.example.spff.fc;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +23,24 @@ public class Fragment1 extends Fragment {
     }
 
 
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment1, container, false);
+
+        
+        manager = getChildFragmentManager();
+        transaction = manager.beginTransaction();
+        MenuFragment menuFragment = new MenuFragment();
+        transaction.replace(R.id.fragment1MenuFrag, menuFragment, "menuFragment");
+        transaction.commit();
+
+
         Button fbutton12 = (Button) view.findViewById(R.id.fbutton12);
         Button fbutton13 = (Button) view.findViewById(R.id.fbutton13);
 

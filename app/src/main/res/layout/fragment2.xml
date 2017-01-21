@@ -4,6 +4,24 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+
+    <LinearLayout
+        android:id="@+id/fragment2MenuFrag"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:background="@color/colorMenu">
+
+        <TextView
+            android:text="Left for menu fragment"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/textView2"
+            android:layout_weight="0.01"
+            android:textSize="36sp" />
+    </LinearLayout>
+
+
     <Button
         android:text="Button2to1"
         android:layout_width="286dp"
