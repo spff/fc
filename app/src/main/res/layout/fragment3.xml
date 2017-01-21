@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-    <Button
-        android:text="Button2to1"
+
+<Button
+        android:text="Button3to1"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
-        android:id="@+id/fbutton21" />
+        android:id="@+id/fbutton31" />
 
     <Button
-        android:text="Button2to3"
+        android:text="Button3to2"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
-        android:id="@+id/fbutton23" />
+        android:id="@+id/fbutton32" />
 
     <TextView
-        android:text="Hi 2"
+        android:text="Hi 3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ftextView2"
+        android:id="@+id/ftextView3"
         android:layout_weight="0.25"
         android:textSize="36sp" />
-
-
 </LinearLayout>

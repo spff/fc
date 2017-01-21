@@ -22,11 +22,6 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
-    public  void  testClick(View view){
-        TextView tv1 = (TextView)view.findViewById(R.id.textView1);
-        tv1.setText("Hello");
-
-    }
     public  void  switchFragment(int destFrag){
         transaction = manager.beginTransaction();
 
@@ -40,6 +35,11 @@ public class MainActivity extends AppCompatActivity  {
                 Fragment2 fragment2 = new Fragment2();
                 transaction.replace(R.id.center, fragment2, "fragment2");
                 break;
+            case 3:
+                Fragment3 fragment3 = new Fragment3();
+                transaction.replace(R.id.center, fragment3, "fragment3");
+
+                break;
 
         }
 //呼叫commit讓變更生效。
@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity  {
 //透過下方程式碼，取得Activity中執行的個體。
         transaction = manager.beginTransaction();
         switch (view.getId()) {
-            case R.id.Button1: case R.id.fbutton2:
+            case R.id.Button1:
                 Fragment1 fragment1 = new Fragment1();
                 transaction.replace(R.id.center, fragment1, "fragment1");
 
                 break;
-            case R.id.Button2:case R.id.fbutton1:
+            case R.id.Button2:
                 Fragment2 fragment2 = new Fragment2();
                 transaction.replace(R.id.center, fragment2, "fragment2");
                 break;
