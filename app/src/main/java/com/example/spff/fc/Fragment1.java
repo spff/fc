@@ -93,7 +93,7 @@ public class Fragment1 extends Fragment {
         public void addItem()
         {
             gregorianCalendar = new GregorianCalendar();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
             dateFormat.setTimeZone(gregorianCalendar.getTimeZone());
             mList.add(dateFormat.format(gregorianCalendar.getTime()));
         }
@@ -118,7 +118,7 @@ public class Fragment1 extends Fragment {
             View v = convertView;
             Holder holder;
             if(v == null){
-                v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.list_item, null);
+                v = LayoutInflater.from(getActivity().getApplicationContext()).inflate(R.layout.list_item, parent, false);
 
                 holder = new Holder();
                 holder.img = (ImageView) v.findViewById(R.id.list_img);
