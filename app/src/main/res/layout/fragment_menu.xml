@@ -5,28 +5,21 @@
 
 
     <Button
-        android:text="ButtonMenuto1"
+        android:text="@string/fragment1"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
-        android:id="@+id/fbuttonMenu1" />
+        android:id="@+id/fragment_menu_button_to_fragment1" />
 
     <Button
-        android:text="ButtonMenuto2"
+        android:text="@string/fragment2"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
-        android:id="@+id/fbuttonMenu2" />
+        android:id="@+id/fragment_menu_button_to_fragment2" />
 
     <Button
-        android:text="ButtonMenuto3"
+        android:text="@string/fragment3"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
-        android:id="@+id/fbuttonMenu3" />
+        android:id="@+id/fragment_menu_button_to_fragment3" />
 
-    <TextView
-        android:text="Hi Menu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ftextViewMenu"
-        android:layout_weight="0.25"
-        android:textSize="36sp" />
 </LinearLayout>

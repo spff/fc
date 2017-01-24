@@ -24,11 +24,11 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_menu, container, false);
-        Button fbuttonMenu1 = (Button) view.findViewById(R.id.fbuttonMenu1);
-        Button fbuttonMenu2 = (Button) view.findViewById(R.id.fbuttonMenu2);
-        Button fbuttonMenu3 = (Button) view.findViewById(R.id.fbuttonMenu3);
+        Button toFragment1 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment1);
+        Button toFragment2 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment2);
+        Button toFragment3 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment3);
 
-        fbuttonMenu1.setOnClickListener(new View.OnClickListener()
+        toFragment1.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -37,7 +37,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        fbuttonMenu2.setOnClickListener(new View.OnClickListener()
+        toFragment2.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -46,7 +46,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        fbuttonMenu3.setOnClickListener(new View.OnClickListener()
+        toFragment3.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

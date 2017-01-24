@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/fragment3MenuFrag"
+        android:id="@+id/fragment3_left_for_menu_frag"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
         android:background="@color/colorMenu">
 
         <TextView
-            android:text="Left for menu fragment"
+            android:text="@string/left_for_menu_fragment"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:id="@+id/textView2"
+            android:layout_height="0dp"
             android:layout_weight="0.01"
             android:textSize="36sp" />
     </LinearLayout>
 
-<Button
-        android:text="Button3to1"
-        android:layout_width="286dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/fbutton31" />
-
-    <Button
-        android:text="Button3to2"
-        android:layout_width="286dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/fbutton32" />
-
     <TextView
-        android:text="Hi 3"
+        android:text="@string/hi_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ftextView3"
+        android:layout_height="0dp"
         android:layout_weight="0.25"
         android:textSize="36sp" />
+
 </LinearLayout>

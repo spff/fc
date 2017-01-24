@@ -20,7 +20,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.StringTokenizer;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -53,8 +53,8 @@ public class Fragment1 extends Fragment {
         adapter = new MyAdapter();
         listView.setAdapter(adapter);
 
-        Button addbutton = (Button) view.findViewById(R.id.addbutton);
-        addbutton.setOnClickListener(new OnClickListener()
+        Button addButton = (Button) view.findViewById(R.id.add_button);
+        addButton.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -62,28 +62,6 @@ public class Fragment1 extends Fragment {
 
                 adapter.addItem();
                 adapter.notifyDataSetChanged();
-            }
-        });
-
-
-
-        Button fbutton12 = (Button) view.findViewById(R.id.fbutton12);
-        Button fbutton13 = (Button) view.findViewById(R.id.fbutton13);
-
-        fbutton12.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ((MainActivity)getActivity()).switchFragment(2);
-            }
-        });
-        fbutton13.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                ((MainActivity)getActivity()).switchFragment(3);
             }
         });
 
@@ -95,7 +73,7 @@ public class Fragment1 extends Fragment {
         manager = getChildFragmentManager();
         transaction = manager.beginTransaction();
         MenuFragment menuFragment = new MenuFragment();
-        transaction.replace(R.id.fragment1MenuFrag, menuFragment, "menuFragment");
+        transaction.replace(R.id.fragment1_left_for_menu_frag, menuFragment, "menuFragment");
         transaction.commit();
 
     }
@@ -114,9 +92,10 @@ public class Fragment1 extends Fragment {
 
         public void addItem()
         {
-
             gregorianCalendar = new GregorianCalendar();
-            mList.add(gregorianCalendar.get(gregorianCalendar.HOUR) + ":" + gregorianCalendar.get(gregorianCalendar.MINUTE) + ":" + gregorianCalendar.get(gregorianCalendar.SECOND));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            dateFormat.setTimeZone(gregorianCalendar.getTimeZone());
+            mList.add(dateFormat.format(gregorianCalendar.getTime()));
         }
 
         @Override
@@ -143,7 +122,7 @@ public class Fragment1 extends Fragment {
 
                 holder = new Holder();
                 holder.img = (ImageView) v.findViewById(R.id.list_img);
-                holder.text = (TextView) v.findViewById(R.id.title);
+                holder.text = (TextView) v.findViewById(R.id.list_text);
                 v.setTag(holder);
 
             } else{
