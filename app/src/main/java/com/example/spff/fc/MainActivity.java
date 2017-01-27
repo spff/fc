@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private FragmentManager manager;
     private FragmentTransaction transaction;
@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity  {
         transaction.commit();
 
     }
-    public  void  switchFragment(int destFrag){
+
+    public void switchFragment(int destFrag) {
 //透過下方程式碼，取得Activity中執行的個體。
         transaction = manager.beginTransaction();
 

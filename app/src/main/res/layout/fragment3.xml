@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/fragment3_left_for_menu_frag"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:orientation="vertical"
-        android:background="@color/colorMenu">
+        android:background="@color/colorMenu"
+        android:orientation="vertical">
 
         <TextView
-            android:text="@string/left_for_menu_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.01"
+            android:text="@string/left_for_menu_fragment"
             android:textSize="36sp" />
     </LinearLayout>
 
     <TextView
-        android:text="@string/hi_3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.25"
+        android:text="@string/hi_3"
         android:textSize="36sp" />
 
 </LinearLayout>

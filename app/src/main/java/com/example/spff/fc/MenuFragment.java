@@ -28,30 +28,24 @@ public class MenuFragment extends Fragment {
         Button toFragment2 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment2);
         Button toFragment3 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment3);
 
-        toFragment1.setOnClickListener(new View.OnClickListener()
-        {
+        toFragment1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                ((MainActivity)getActivity()).switchFragment(1);
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).switchFragment(1);
             }
         });
 
-        toFragment2.setOnClickListener(new View.OnClickListener()
-        {
+        toFragment2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                ((MainActivity)getActivity()).switchFragment(2);
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).switchFragment(2);
             }
         });
 
-        toFragment3.setOnClickListener(new View.OnClickListener()
-        {
+        toFragment3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                ((MainActivity)getActivity()).switchFragment(3);
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).switchFragment(3);
             }
         });
 
