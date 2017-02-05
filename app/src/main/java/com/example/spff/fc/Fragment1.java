@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -43,15 +44,21 @@ public class Fragment1 extends Fragment {
         // Required empty public constructor
     }
 
-
     private FragmentManager manager;
     private FragmentTransaction transaction;
 
     private ListView listView;
     private MyAdapter adapter;
-    private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> items = new ArrayList<>();
 
     private GregorianCalendar gregorianCalendar;
+
+    public void updateList(int position, String string){
+        Map<String, Object> item = (HashMap<String, Object>)adapter.getItem(position);
+        item.put("text", string);
+        items.set(position, item);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,10 +69,26 @@ public class Fragment1 extends Fragment {
         replaceMenuFrag();
 
 
+
         listView = (ListView) view.findViewById(R.id.listView);
         adapter = new MyAdapter(getContext(), items, R.layout.list_item, new String[]{"image", "text"},
                 new int[]{R.id.list_img, R.id.list_text});
         listView.setAdapter(adapter);
+
+
+        listView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                                    final int position, long id) {
+
+                ((MainActivity) getContext()).editFragment1List(
+                        position, (String) ((Map<String, Object>) adapter.getItem(position)).get("text")
+                );
+
+            }
+        });
+
 
         listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -129,7 +152,7 @@ public class Fragment1 extends Fragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
                 dateFormat.setTimeZone(gregorianCalendar.getTimeZone());
 
-                Map<String, Object> item = new HashMap<String, Object>();
+                Map<String, Object> item = new HashMap<>();
                 item.put("image", R.mipmap.ic_launcher);
                 item.put("text", dateFormat.format(gregorianCalendar.getTime()));
                 items.add(item);
