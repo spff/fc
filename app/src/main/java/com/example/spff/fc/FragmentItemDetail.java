@@ -12,13 +12,13 @@ import android.widget.EditText;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment11 extends Fragment {
+public class FragmentItemDetail extends Fragment {
 
     public String text;
     private EditText editText;
 
 
-    public Fragment11() {
+    public FragmentItemDetail() {
         // Required empty public constructor
     }
 
