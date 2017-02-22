@@ -51,11 +51,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int fragment1EditPosition;
-    public void editFragment1List(int position, String string){
+    public void editFragment1List(int position, String string, int imageID){
         fragment1EditPosition = position;
 
         FragmentItemDetail fragmentItemDetail = new FragmentItemDetail();
         fragmentItemDetail.text = string;
+        fragmentItemDetail.imageID = imageID;
         manager.beginTransaction()
                 .replace(R.id.center, fragmentItemDetail, "fragmentItemDetail").addToBackStack("fragmentItemDetail")
                 .commit();

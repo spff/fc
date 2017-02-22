@@ -74,7 +74,9 @@ public class Fragment1 extends Fragment {
                                     final int position, long id) {
 
                 ((MainActivity) getActivity()).editFragment1List(
-                        position, (String) ((Map<String, Object>) adapter.getItem(position)).get("text")
+                        position,
+                        (String) ((Map<String, Object>) adapter.getItem(position)).get("text"),
+                        (int) ((Map<String, Object>) adapter.getItem(position)).get("image")
                 );
 
             }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 
 /**
@@ -15,8 +16,9 @@ import android.widget.EditText;
 public class FragmentItemDetail extends Fragment {
 
     public String text;
+    public int imageID;
     private EditText editText;
-
+    private ImageView imageView;
 
     public FragmentItemDetail() {
         // Required empty public constructor
@@ -27,11 +29,14 @@ public class FragmentItemDetail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment11, container, false);
+        final View view = inflater.inflate(R.layout.fragment_item_detail, container, false);
 
 
-        editText = (EditText) view.findViewById(R.id.editText);
+        editText = (EditText) view.findViewById(R.id.edit_text);
         editText.setText(text);
+        imageView = (ImageView) view.findViewById(R.id.edit_img);
+        imageView.setImageResource(imageID);
+
         return view;
     }
 
