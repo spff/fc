@@ -95,14 +95,14 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_CANCEL:
                 return cancelAction(motionEvent);
             case MotionEvent.ACTION_UP:
-                return  upAction(motionEvent);
+                return upAction(motionEvent);
             case MotionEvent.ACTION_MOVE:
-                return  moveAction(motionEvent);
+                return moveAction(motionEvent);
         }
         return false;
     }
 
-    private boolean downAction(MotionEvent motionEvent){
+    private boolean downAction(MotionEvent motionEvent) {
         if (mPaused) {
             return false;
         }
@@ -141,7 +141,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
     }
 
-    private boolean cancelAction(MotionEvent motionEvent){
+    private boolean cancelAction(MotionEvent motionEvent) {
         if (mVelocityTracker == null) {
             return false;
         }
@@ -164,7 +164,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         return false;
 
     }
-    private boolean upAction(MotionEvent motionEvent){
+
+    private boolean upAction(MotionEvent motionEvent) {
         if (mVelocityTracker == null) {
             return false;
         }
@@ -219,7 +220,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         return false;
     }
 
-    private boolean moveAction(MotionEvent motionEvent){
+    private boolean moveAction(MotionEvent motionEvent) {
         if (mVelocityTracker == null || mPaused) {
             return false;
         }
@@ -249,8 +250,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         }
         return false;
     }
-
-
 
 
     class PendingDismissData implements Comparable<PendingDismissData> {

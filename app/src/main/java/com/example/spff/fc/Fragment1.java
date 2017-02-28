@@ -32,18 +32,16 @@ import java.util.Map;
 public class Fragment1 extends Fragment {
 
 
-    public Fragment1() {
-        // Required empty public constructor
-    }
-
     private FragmentManager manager;
     private FragmentTransaction transaction;
-
     private ListView listView;
     private SimpleAdapter adapter;
     private List<Map<String, Object>> items = new ArrayList<>();
-
     private GregorianCalendar gregorianCalendar;
+
+    public Fragment1() {
+        // Required empty public constructor
+    }
 
     public void updateList(int position, String string) {
         Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);

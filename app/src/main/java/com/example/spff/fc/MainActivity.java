@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int fragment1EditPosition;
-    public void editFragment1List(int position, String string, int imageID){
+
+    public void editFragment1List(int position, String string, int imageID) {
         fragment1EditPosition = position;
 
         FragmentItemDetail fragmentItemDetail = new FragmentItemDetail();
@@ -63,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void updateFragment1List(String string){
+    public void updateFragment1List(String string) {
         fragment1.updateList(fragment1EditPosition, string);
     }
+
 
 }
