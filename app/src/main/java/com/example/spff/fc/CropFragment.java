@@ -103,6 +103,7 @@ public final class CropFragment extends Fragment {
                     e.printStackTrace();
                 }
                 ((MainActivity) getActivity()).updateFragmentItemDetailURI(Uri.fromFile(photoFile));
+                ((MainActivity) getActivity()).updateFragment1List(Uri.fromFile(photoFile));
                 ((MainActivity) getActivity()).updateFragment1List(ThumbnailUtils.extractThumbnail(result.getBitmap(), 96, 96));
 
                 getActivity().getSupportFragmentManager().popBackStack();

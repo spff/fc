@@ -3,6 +3,7 @@ package com.example.spff.fc;
 
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -59,6 +60,12 @@ public class Fragment1 extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    public void updateList(int position, Uri editURI) {
+        Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
+        item.put("uri", editURI);
+        items.set(position, item);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,8 +81,8 @@ public class Fragment1 extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         listView = (ListView) view.findViewById(R.id.listView);
-        adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"image", "text"},
-                new int[]{R.id.list_img, R.id.list_text});
+        adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"image", "text", "uri"},
+                new int[]{R.id.list_img, R.id.list_text, R.id.list_uri});
 
         SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
 
@@ -107,7 +114,7 @@ public class Fragment1 extends Fragment {
                 ((MainActivity) getActivity()).editFragment1List(
                         position,
                         (String) ((Map<String, Object>) adapter.getItem(position)).get("text"),
-                        null//should be the editUri bind with the item
+                        (Uri)((Map<String, Object>) adapter.getItem(position)).get("uri")
                 );
 
             }

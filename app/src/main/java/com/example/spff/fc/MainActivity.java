@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         fragment1.updateList(fragment1EditPosition, thumbnail);
     }
 
+    public void updateFragment1List(Uri editURI) {
+        fragment1.updateList(fragment1EditPosition, editURI);
+    }
 
     public void cropPhoto(Uri photoURI) {
 
