@@ -12,4 +12,6 @@
     <string name="hi_3">hi 3</string>
     <string name="hi_main">hi main</string>
     <string name="add">add</string>
+    <string name="main_action_crop">CROP</string>
+
 </resources>

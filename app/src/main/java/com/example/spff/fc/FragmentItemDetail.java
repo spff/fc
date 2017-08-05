@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -32,6 +34,9 @@ public class FragmentItemDetail extends Fragment {
     public int imageID;
     private EditText editText;
     private ImageView imageView;
+
+    public Uri editURI = null;
+
 
     Intent takePictureIntent;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -46,23 +51,30 @@ public class FragmentItemDetail extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_item_detail, container, false);
+        return view;
+    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         editText = (EditText) view.findViewById(R.id.edit_text);
         editText.setText(text);
+
         imageView = (ImageView) view.findViewById(R.id.edit_img);
-        imageView.setImageResource(imageID);
+        if(editURI  == null){
+            imageView.setImageResource(imageID);
+        }else {
+            imageView.setImageURI(editURI);
+        }
 
         imageView.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 requestandTakePicture();
             }
         });
 
-
-        return view;
     }
 
     @Override
@@ -85,6 +97,13 @@ public class FragmentItemDetail extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        //OnResume Fragment
+        editText.setText(text);//if someone update the value of the string text, the view of the editText
+                                // won't be refresh via onCreateView, so I put it here.
+    }
 
     private void requestandTakePicture() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
@@ -100,9 +119,10 @@ public class FragmentItemDetail extends Fragment {
 
 
     static final int REQUEST_TAKE_PHOTO = 1;
+    public Uri photoURI;
 
     private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -114,14 +134,23 @@ public class FragmentItemDetail extends Fragment {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getContext(),
+                photoURI = FileProvider.getUriForFile(getContext(),
                         "com.example.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+
             }
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if((requestCode == REQUEST_TAKE_PHOTO)&&(resultCode == RESULT_OK)) {
+                ((MainActivity) getActivity()).cropPhoto(photoURI);
+        }
+    }
+
 
     String mCurrentPhotoPath;
 
@@ -141,6 +170,8 @@ public class FragmentItemDetail extends Fragment {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
+
+
 
 
 }

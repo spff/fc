@@ -1,5 +1,6 @@
 package com.example.spff.fc;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
     public Fragment1 fragment1;
     public Fragment2 fragment2;
     public Fragment3 fragment3;
+    public FragmentItemDetail fragmentItemDetail;
+    public CropFragment cropFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
     }
+
+
+
 
     public void switchFragment(int destFrag) {
 
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public void editFragment1List(int position, String string, int imageID) {
         fragment1EditPosition = position;
 
-        FragmentItemDetail fragmentItemDetail = new FragmentItemDetail();
+        fragmentItemDetail = new FragmentItemDetail();
         fragmentItemDetail.text = string;
         fragmentItemDetail.imageID = imageID;
         manager.beginTransaction()
@@ -66,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateFragment1List(String string) {
         fragment1.updateList(fragment1EditPosition, string);
+    }
+
+    public void cropPhoto(Uri photoURI) {
+
+        cropFragment = new CropFragment();
+        cropFragment.photoURI = photoURI;
+        manager.beginTransaction()
+                .replace(R.id.center, cropFragment, "cropFragment").addToBackStack("cropFragment")
+                .commit();
+
+    }
+
+    public void updateFragmentItemDetailURI(Uri editURI){
+        fragmentItemDetail.editURI = editURI;
     }
 
 

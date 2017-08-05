@@ -19,6 +19,9 @@
             android:layout_weight="0.25"
             android:text="@string/hi_main"
             android:textSize="36sp" />
+
+
+
     </LinearLayout>
 
 </LinearLayout>
