@@ -2,6 +2,7 @@ package com.example.spff.fc;
 
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -50,6 +52,14 @@ public class Fragment1 extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    public void updateList(int position, Bitmap thumbnail) {
+        Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
+        item.put("image", thumbnail);
+        items.set(position, item);
+        adapter.notifyDataSetChanged();
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,10 +68,33 @@ public class Fragment1 extends Fragment {
 
         replaceMenuFrag();
 
+        return view;
+    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         listView = (ListView) view.findViewById(R.id.listView);
         adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"image", "text"},
                 new int[]{R.id.list_img, R.id.list_text});
+
+        SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
+
+            public boolean setViewValue(View view, Object data, String textRepresentation) {
+                boolean isBitmap = false;
+
+                if (view instanceof ImageView && data instanceof Bitmap)
+                {
+                    ImageView imageView = (ImageView) view;
+                    imageView.setImageBitmap((Bitmap) data);
+
+                    isBitmap = true;
+                }
+                return isBitmap;
+            }
+        };
+        adapter.setViewBinder(viewBinder);
+
+
         listView.setAdapter(adapter);
 
 
@@ -74,7 +107,7 @@ public class Fragment1 extends Fragment {
                 ((MainActivity) getActivity()).editFragment1List(
                         position,
                         (String) ((Map<String, Object>) adapter.getItem(position)).get("text"),
-                        (int) ((Map<String, Object>) adapter.getItem(position)).get("image")
+                        null//should be the editUri bind with the item
                 );
 
             }
@@ -150,11 +183,9 @@ public class Fragment1 extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-
-        return view;
     }
 
-    public void replaceMenuFrag() {
+    private void replaceMenuFrag() {
 
         manager = getChildFragmentManager();
         transaction = manager.beginTransaction();

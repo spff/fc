@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,6 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentItemDetail extends Fragment {
 
     public String text;
-    public int imageID;
     private EditText editText;
     private ImageView imageView;
 
@@ -61,9 +62,28 @@ public class FragmentItemDetail extends Fragment {
         editText = (EditText) view.findViewById(R.id.edit_text);
         editText.setText(text);
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ((MainActivity) getActivity()).updateFragment1List(editText.getText().toString());
+                text = editText.getText().toString();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         imageView = (ImageView) view.findViewById(R.id.edit_img);
         if(editURI  == null){
-            imageView.setImageResource(imageID);
+            imageView.setImageResource(R.mipmap.ic_launcher);
         }else {
             imageView.setImageURI(editURI);
         }
@@ -91,11 +111,6 @@ public class FragmentItemDetail extends Fragment {
         }
     }
 
-    @Override
-    public void onDetach() {
-        ((MainActivity) getActivity()).updateFragment1List(editText.getText().toString());
-        super.onDetach();
-    }
 
     @Override
     public void onResume(){
@@ -170,8 +185,6 @@ public class FragmentItemDetail extends Fragment {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-
-
 
 
 }

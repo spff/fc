@@ -1,5 +1,6 @@
 package com.example.spff.fc;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -58,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
 
     private int fragment1EditPosition;
 
-    public void editFragment1List(int position, String string, int imageID) {
+    public void editFragment1List(int position, String string, Uri editURI) {
         fragment1EditPosition = position;
 
         fragmentItemDetail = new FragmentItemDetail();
         fragmentItemDetail.text = string;
-        fragmentItemDetail.imageID = imageID;
+        fragmentItemDetail.editURI = editURI;
         manager.beginTransaction()
                 .replace(R.id.center, fragmentItemDetail, "fragmentItemDetail").addToBackStack("fragmentItemDetail")
                 .commit();
@@ -73,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
     public void updateFragment1List(String string) {
         fragment1.updateList(fragment1EditPosition, string);
     }
+
+    public void updateFragment1List(Bitmap thumbnail) {
+        fragment1.updateList(fragment1EditPosition, thumbnail);
+    }
+
 
     public void cropPhoto(Uri photoURI) {
 
