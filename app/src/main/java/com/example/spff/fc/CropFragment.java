@@ -30,7 +30,6 @@ import java.util.GregorianCalendar;
  */
 public final class CropFragment extends Fragment {
 
-
     public Uri photoURI;
     CropImageView cropImageView;
 
@@ -83,7 +82,6 @@ public final class CropFragment extends Fragment {
 
 
 
-
     private void handleCropResult(CropImageView.CropResult result) {
         if (result.getError() == null) {
 
@@ -102,10 +100,13 @@ public final class CropFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+
+                Toast.makeText(getContext(), Uri.fromFile(photoFile).toString(), Toast.LENGTH_SHORT).show();
+
                 ((MainActivity) getActivity()).updateFragmentItemDetailURI(Uri.fromFile(photoFile));
                 ((MainActivity) getActivity()).updateFragment1List(Uri.fromFile(photoFile));
                 ((MainActivity) getActivity()).updateFragment1List(ThumbnailUtils.extractThumbnail(result.getBitmap(), 96, 96));
-
                 getActivity().getSupportFragmentManager().popBackStack();
 
             }

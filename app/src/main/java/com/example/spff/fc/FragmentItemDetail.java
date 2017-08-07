@@ -59,6 +59,8 @@ public class FragmentItemDetail extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((MainActivity)getActivity()).removePhotoToDelete();
+
         editText = (EditText) view.findViewById(R.id.edit_text);
         editText.setText(text);
 
@@ -161,8 +163,11 @@ public class FragmentItemDetail extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if((requestCode == REQUEST_TAKE_PHOTO)&&(resultCode == RESULT_OK)) {
+        if(requestCode == REQUEST_TAKE_PHOTO){
+            ((MainActivity)getActivity()).addPhotoToDelete(mCurrentPhotoPath);
+            if(resultCode == RESULT_OK){
                 ((MainActivity) getActivity()).cropPhoto(photoURI);
+            }
         }
     }
 

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager manager;
@@ -15,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     public Fragment3 fragment3;
     public FragmentItemDetail fragmentItemDetail;
     public CropFragment cropFragment;
+
+    private ArrayList<String> photoToDelete = new ArrayList<>();//should be store and restore to SQL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +99,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFragmentItemDetailURI(Uri editURI){
+        if(fragmentItemDetail.editURI != null)
+            new File(fragmentItemDetail.editURI.getPath()).delete();
+
         fragmentItemDetail.editURI = editURI;
     }
 
+    public void addPhotoToDelete(String s){
+        photoToDelete.add(s);
+    }
+    public void removePhotoToDelete(){
+        while (!photoToDelete.isEmpty()){
+            new File(photoToDelete.get(0)).delete();
+            photoToDelete.remove(0);
+        }
+    }
 
 }

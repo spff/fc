@@ -80,6 +80,9 @@ public class Fragment1 extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+
+
         listView = (ListView) view.findViewById(R.id.listView);
         adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"image", "text", "uri"},
                 new int[]{R.id.list_img, R.id.list_text, R.id.list_uri});
