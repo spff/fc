@@ -110,7 +110,7 @@ public final class CropFragment extends Fragment {
 
             File thumbnailFile = null;
             try {
-                thumbnailFile = createImageFile();
+                thumbnailFile = createImageFile("thumbnail");
             } catch (IOException ex) {
                 // Error occurred while creating the File
             }
@@ -136,11 +136,15 @@ public final class CropFragment extends Fragment {
 
 
     String mCurrentPhotoPath;
-    private File createImageFile() throws IOException {
+        private File createImageFile() throws IOException {
+            return createImageFile("");
+        }
+
+        private File createImageFile(String postfix) throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", java.util.Locale.getDefault())
                 .format(new GregorianCalendar().getTime());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        String imageFileName = "JPEG_" + timeStamp + "_" + postfix;
         File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
