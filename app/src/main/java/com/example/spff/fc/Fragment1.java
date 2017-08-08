@@ -56,7 +56,7 @@ public class Fragment1 extends Fragment {
     public void updateList(int position, Uri uri, String toPut) {//toPut should be "thumbnailURI" or "cropURI"
         Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
         if(toPut == "thumbnailURI" && items.get(position).get(toPut) instanceof Uri) {
-            boolean b = new File(((Uri) items.get(position).get(toPut)).getPath()).delete();
+            new File(((Uri) items.get(position).get(toPut)).getPath()).delete();
         }
         item.put(toPut, uri);
         items.set(position, item);
@@ -143,6 +143,8 @@ public class Fragment1 extends Fragment {
                         .setMessage("Delete?")
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                new File(((Uri) items.get(position).get("thumbnailURI")).getPath()).delete();
+                                new File(((Uri) items.get(position).get("cropURI")).getPath()).delete();
                                 items.remove(position);
                                 adapter.notifyDataSetChanged();
                             }
@@ -168,7 +170,8 @@ public class Fragment1 extends Fragment {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-
+                                    new File(((Uri) items.get(position).get("thumbnailURI")).getPath()).delete();
+                                    new File(((Uri) items.get(position).get("cropURI")).getPath()).delete();
                                     items.remove(position);
                                     adapter.notifyDataSetChanged();
 
