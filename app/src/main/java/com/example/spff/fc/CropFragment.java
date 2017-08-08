@@ -101,16 +101,32 @@ public final class CropFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-
-                Toast.makeText(getContext(), Uri.fromFile(photoFile).toString(), Toast.LENGTH_SHORT).show();
-
                 ((MainActivity) getActivity()).updateFragmentItemDetailURI(Uri.fromFile(photoFile));
-                ((MainActivity) getActivity()).updateFragment1List(Uri.fromFile(photoFile));
-                ((MainActivity) getActivity()).updateFragment1List(ThumbnailUtils.extractThumbnail(result.getBitmap(), 96, 96));
-                getActivity().getSupportFragmentManager().popBackStack();
+                ((MainActivity) getActivity()).updateFragment1List(Uri.fromFile(photoFile), "cropURI");
+
+
 
             }
 
+            File thumbnailFile = null;
+            try {
+                thumbnailFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            if (thumbnailFile != null) {
+                FileOutputStream fout;
+                try {
+                    fout = new FileOutputStream(thumbnailFile);
+                    ThumbnailUtils.extractThumbnail(result.getBitmap(), 96, 96).compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                    fout.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ((MainActivity) getActivity()).updateFragment1List(Uri.fromFile(thumbnailFile), "thumbnailURI");
+            }
+
+            getActivity().getSupportFragmentManager().popBackStack();
 
         } else {
             Log.e("AIC", "Failed to crop image", result.getError());

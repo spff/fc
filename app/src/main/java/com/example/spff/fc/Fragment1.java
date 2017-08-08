@@ -2,7 +2,6 @@ package com.example.spff.fc;
 
 
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +21,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -53,17 +53,14 @@ public class Fragment1 extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    public void updateList(int position, Bitmap thumbnail) {
+    public void updateList(int position, Uri uri, String toPut) {//toPut should be "thumbnailURI" or "cropURI"
         Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
-        item.put("image", thumbnail);
+        if(toPut == "thumbnailURI" && items.get(position).get(toPut) instanceof Uri) {
+            boolean b = new File(((Uri) items.get(position).get(toPut)).getPath()).delete();
+        }
+        item.put(toPut, uri);
         items.set(position, item);
-        adapter.notifyDataSetChanged();
-    }
 
-    public void updateList(int position, Uri editURI) {
-        Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
-        item.put("uri", editURI);
-        items.set(position, item);
         adapter.notifyDataSetChanged();
     }
 
@@ -84,22 +81,26 @@ public class Fragment1 extends Fragment {
 
 
         listView = (ListView) view.findViewById(R.id.listView);
-        adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"image", "text", "uri"},
+        adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"thumbnailURI", "text", "cropURI"},
                 new int[]{R.id.list_img, R.id.list_text, R.id.list_uri});
 
         SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
 
             public boolean setViewValue(View view, Object data, String textRepresentation) {
-                boolean isBitmap = false;
 
-                if (view instanceof ImageView && data instanceof Bitmap)
+
+                boolean isUri = false;
+
+                if (view instanceof ImageView && data instanceof Uri)
                 {
-                    ImageView imageView = (ImageView) view;
-                    imageView.setImageBitmap((Bitmap) data);
+                    if(new File(((Uri) data).getPath()).exists()) {
+                        ImageView imageView = (ImageView) view;
+                        imageView.setImageURI((Uri) data);
 
-                    isBitmap = true;
+                        isUri = true;
+                    }
                 }
-                return isBitmap;
+                return isUri;
             }
         };
         adapter.setViewBinder(viewBinder);
@@ -117,7 +118,7 @@ public class Fragment1 extends Fragment {
                 ((MainActivity) getActivity()).editFragment1List(
                         position,
                         (String) ((Map<String, Object>) adapter.getItem(position)).get("text"),
-                        (Uri)((Map<String, Object>) adapter.getItem(position)).get("uri")
+                        (Uri)((Map<String, Object>) adapter.getItem(position)).get("cropURI")
                 );
 
             }
@@ -187,7 +188,7 @@ public class Fragment1 extends Fragment {
                 dateFormat.setTimeZone(gregorianCalendar.getTimeZone());
 
                 Map<String, Object> item = new HashMap<>();
-                item.put("image", R.mipmap.ic_launcher);
+                item.put("thumbnailURI", R.mipmap.ic_launcher);
                 item.put("text", dateFormat.format(gregorianCalendar.getTime()));
                 items.add(item);
                 adapter.notifyDataSetChanged();

@@ -1,6 +1,5 @@
 package com.example.spff.fc;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -64,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
     private int fragment1EditPosition;
 
-    public void editFragment1List(int position, String string, Uri editURI) {
+    public void editFragment1List(int position, String string, Uri cropURI) {
         fragment1EditPosition = position;
 
         fragmentItemDetail = new FragmentItemDetail();
         fragmentItemDetail.text = string;
-        fragmentItemDetail.editURI = editURI;
+        fragmentItemDetail.cropURI = cropURI;
         manager.beginTransaction()
                 .replace(R.id.center, fragmentItemDetail, "fragmentItemDetail").addToBackStack("fragmentItemDetail")
                 .commit();
@@ -80,12 +79,8 @@ public class MainActivity extends AppCompatActivity {
         fragment1.updateList(fragment1EditPosition, string);
     }
 
-    public void updateFragment1List(Bitmap thumbnail) {
-        fragment1.updateList(fragment1EditPosition, thumbnail);
-    }
-
-    public void updateFragment1List(Uri editURI) {
-        fragment1.updateList(fragment1EditPosition, editURI);
+    public void updateFragment1List(Uri uri, String toPut) {//toPut should be "thumbnailURI" or "cropURI"
+        fragment1.updateList(fragment1EditPosition, uri, toPut);
     }
 
     public void cropPhoto(Uri photoURI) {
@@ -98,12 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void updateFragmentItemDetailURI(Uri editURI){
-        if(fragmentItemDetail.editURI != null)
-            new File(fragmentItemDetail.editURI.getPath()).delete();
+    public void updateFragmentItemDetailURI(Uri cropURI){
+        if(fragmentItemDetail.cropURI != null)
+            new File(fragmentItemDetail.cropURI.getPath()).delete();
 
-        fragmentItemDetail.editURI = editURI;
+        fragmentItemDetail.cropURI = cropURI;
     }
+    
 
     public void addPhotoToDelete(String s){
         photoToDelete.add(s);
