@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +37,11 @@ public class Fragment1 extends Fragment {
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private ListView listView;
-    private SimpleAdapter adapter;
-    private List<Map<String, Object>> items = new ArrayList<>();
+    public SimpleAdapter adapter;
+    public List<Map<String, Object>> items;
+
     private GregorianCalendar gregorianCalendar;
+    public ItemDataAccessObject itemDataAccessObject;
 
     public Fragment1() {
         // Required empty public constructor
@@ -49,16 +50,18 @@ public class Fragment1 extends Fragment {
     public void updateList(int position, String string) {
         Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
         item.put("text", string);
+        itemDataAccessObject.update(item);
         items.set(position, item);
         adapter.notifyDataSetChanged();
     }
 
     public void updateList(int position, Uri uri, String toPut) {//toPut should be "thumbnailURI" or "cropURI"
         Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
-        if(toPut == "thumbnailURI" && items.get(position).get(toPut) instanceof Uri) {
+        if (/*toPut == "thumbnailURI" &&*/ items.get(position).get(toPut) instanceof Uri) {
             new File(((Uri) items.get(position).get(toPut)).getPath()).delete();
         }
         item.put(toPut, uri);
+        itemDataAccessObject.update(item);
         items.set(position, item);
 
         adapter.notifyDataSetChanged();
@@ -78,11 +81,13 @@ public class Fragment1 extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-
-
         listView = (ListView) view.findViewById(R.id.listView);
-        adapter = new SimpleAdapter(getContext(), items, R.layout.list_item, new String[]{"thumbnailURI", "text", "cropURI"},
-                new int[]{R.id.list_img, R.id.list_text, R.id.list_uri});
+        adapter = new SimpleAdapter(
+                getContext(), items,
+                R.layout.list_item,
+                new String[]{"thumbnailURI", "text", "cropURI", "SQLid"},
+                new int[]{R.id.list_img, R.id.list_text, R.id.list_uri}//not sure if we can have fewer "to" array than "from" array
+        );
 
         SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
 
@@ -91,9 +96,8 @@ public class Fragment1 extends Fragment {
 
                 boolean isUri = false;
 
-                if (view instanceof ImageView && data instanceof Uri)
-                {
-                    if(new File(((Uri) data).getPath()).exists()) {
+                if (view instanceof ImageView && data instanceof Uri) {
+                    if (new File(((Uri) data).getPath()).exists()) {
                         ImageView imageView = (ImageView) view;
                         imageView.setImageURI((Uri) data);
 
@@ -118,7 +122,7 @@ public class Fragment1 extends Fragment {
                 ((MainActivity) getActivity()).editFragment1List(
                         position,
                         (String) ((Map<String, Object>) adapter.getItem(position)).get("text"),
-                        (Uri)((Map<String, Object>) adapter.getItem(position)).get("cropURI")
+                        ((Map<String, Object>) adapter.getItem(position)).get("cropURI")
                 );
 
             }
@@ -143,8 +147,13 @@ public class Fragment1 extends Fragment {
                         .setMessage("Delete?")
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                new File(((Uri) items.get(position).get("thumbnailURI")).getPath()).delete();
-                                new File(((Uri) items.get(position).get("cropURI")).getPath()).delete();
+                                if( items.get(position).get("thumbnailURI") instanceof Uri) {
+                                    new File(((Uri) items.get(position).get("thumbnailURI")).getPath()).delete();
+                                }
+                                if( items.get(position).get("cropURI") instanceof Uri) {
+                                    new File(((Uri) items.get(position).get("cropURI")).getPath()).delete();
+                                }
+                                itemDataAccessObject.delete((String) items.get(position).get("SQLid"));
                                 items.remove(position);
                                 adapter.notifyDataSetChanged();
                             }
@@ -170,8 +179,13 @@ public class Fragment1 extends Fragment {
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    new File(((Uri) items.get(position).get("thumbnailURI")).getPath()).delete();
-                                    new File(((Uri) items.get(position).get("cropURI")).getPath()).delete();
+                                    if( items.get(position).get("thumbnailURI") instanceof Uri) {
+                                        new File(((Uri) items.get(position).get("thumbnailURI")).getPath()).delete();
+                                    }
+                                    if( items.get(position).get("cropURI") instanceof Uri) {
+                                        new File(((Uri) items.get(position).get("cropURI")).getPath()).delete();
+                                    }
+                                    itemDataAccessObject.delete((String) items.get(position).get("SQLid"));
                                     items.remove(position);
                                     adapter.notifyDataSetChanged();
 
@@ -193,6 +207,10 @@ public class Fragment1 extends Fragment {
                 Map<String, Object> item = new HashMap<>();
                 item.put("thumbnailURI", R.mipmap.ic_launcher);
                 item.put("text", dateFormat.format(gregorianCalendar.getTime()));
+                item.put("cropURI", R.mipmap.ic_launcher);
+
+
+                itemDataAccessObject.insert(item);
                 items.add(item);
                 adapter.notifyDataSetChanged();
             }

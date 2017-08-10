@@ -36,7 +36,7 @@ public class FragmentItemDetail extends Fragment {
     private EditText editText;
     private ImageView imageView;
 
-    public Uri cropURI = null;
+    public Object cropURI;
 
 
     Intent takePictureIntent;
@@ -84,10 +84,13 @@ public class FragmentItemDetail extends Fragment {
         });
 
         imageView = (ImageView) view.findViewById(R.id.edit_img);
-        if(cropURI  == null){
-            imageView.setImageResource(R.mipmap.ic_launcher);
+
+
+
+        if(cropURI instanceof Uri && new File(((Uri) cropURI).getPath()).exists()) {
+            imageView.setImageURI((Uri) cropURI);
         }else {
-            imageView.setImageURI(cropURI);
+            imageView.setImageResource(R.mipmap.ic_launcher);
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {

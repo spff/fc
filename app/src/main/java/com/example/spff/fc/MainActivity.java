@@ -26,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
         fragment1 = new Fragment1();
+
+        //TODO make code below pass using Bundle
+        fragment1.itemDataAccessObject = new ItemDataAccessObject(getApplicationContext());
+        fragment1.items = fragment1.itemDataAccessObject.getAll();
+
+
+
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
 
@@ -63,11 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
     private int fragment1EditPosition;
 
-    public void editFragment1List(int position, String string, Uri cropURI) {
+    public void editFragment1List(int position, String string, Object cropURI) {
         fragment1EditPosition = position;
 
         fragmentItemDetail = new FragmentItemDetail();
         fragmentItemDetail.text = string;
+
         fragmentItemDetail.cropURI = cropURI;
         manager.beginTransaction()
                 .replace(R.id.center, fragmentItemDetail, "fragmentItemDetail").addToBackStack("fragmentItemDetail")
@@ -94,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFragmentItemDetailURI(Uri cropURI){
-        if(fragmentItemDetail.cropURI != null)
-            new File(fragmentItemDetail.cropURI.getPath()).delete();
-
         fragmentItemDetail.cropURI = cropURI;
     }
     

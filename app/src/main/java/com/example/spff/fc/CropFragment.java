@@ -104,8 +104,6 @@ public final class CropFragment extends Fragment {
                 ((MainActivity) getActivity()).updateFragmentItemDetailURI(Uri.fromFile(photoFile));
                 ((MainActivity) getActivity()).updateFragment1List(Uri.fromFile(photoFile), "cropURI");
 
-
-
             }
 
             File thumbnailFile = null;
