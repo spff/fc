@@ -104,17 +104,17 @@ public class ItemDataAccessObject {
     }
 
     // 把Cursor目前的資料包裝為物件
-public Map<String, Object> getRecord(Cursor cursor) {
-    // 準備回傳結果用的物件
-    Map<String, Object> result = new HashMap<>();
+    public Map<String, Object> getRecord(Cursor cursor) {
+        // 準備回傳結果用的物件
+        Map<String, Object> result = new HashMap<>();
 
-    result.put("SQLid", Long.toString(cursor.getLong(0)));
-    result.put("thumbnailURI", Uri.parse(cursor.getString(1)));
-    result.put("cropURI", Uri.parse(cursor.getString(2)));
-    result.put("text", cursor.getString(3));
+        result.put("SQLid", Long.toString(cursor.getLong(0)));
+        result.put("thumbnailURI", Uri.parse(cursor.getString(1)));
+        result.put("cropURI", Uri.parse(cursor.getString(2)));
+        result.put("text", cursor.getString(3));
 
-    // 回傳結果
-    return result;
-}
+        // 回傳結果
+        return result;
+    }
 
 }

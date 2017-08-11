@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +32,6 @@ import java.util.Map;
 public class Fragment1 extends Fragment {
 
 
-    private FragmentManager manager;
-    private FragmentTransaction transaction;
     private ListView listView;
     public SimpleAdapter adapter;
     public List<Map<String, Object>> items;
@@ -67,7 +63,7 @@ public class Fragment1 extends Fragment {
 
     public void updateList(int position, Uri uri, String toPut) {//toPut should be "thumbnailURI" or "cropURI"
         Map<String, Object> item = (HashMap<String, Object>) adapter.getItem(position);
-        if (/*toPut == "thumbnailURI" &&*/ items.get(position).get(toPut) instanceof Uri) {
+        if (items.get(position).get(toPut) instanceof Uri) {
             new File(((Uri) items.get(position).get(toPut)).getPath()).delete();
         }
         item.put(toPut, uri);
@@ -86,23 +82,23 @@ public class Fragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        final View view = inflater.inflate(R.layout.fragment1, container, false);
-
-        replaceMenuFrag();
-
-        return view;
+        return inflater.inflate(R.layout.fragment1, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment1_left_for_menu_frag, new MenuFragment(), "menuFragment")
+                .commit();
 
         listView = (ListView) view.findViewById(R.id.listView);
         adapter = new SimpleAdapter(
                 getContext(), items,
                 R.layout.list_item,
                 new String[]{"thumbnailURI", "text", "cropURI", "SQLid"},
-                new int[]{R.id.list_img, R.id.list_text, R.id.list_uri}//not sure if we can have fewer "to" array than "from" array
+                new int[]{R.id.list_img, R.id.list_text}//not sure if we can have fewer "to" array than "from" array
         );
 
         SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
@@ -233,14 +229,5 @@ public class Fragment1 extends Fragment {
         });
     }
 
-    private void replaceMenuFrag() {
-
-        manager = getChildFragmentManager();
-        transaction = manager.beginTransaction();
-        MenuFragment menuFragment = new MenuFragment();
-        transaction.replace(R.id.fragment1_left_for_menu_frag, menuFragment, "menuFragment");
-        transaction.commit();
-
-    }
 
 }

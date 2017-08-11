@@ -23,7 +23,11 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_menu, container, false);
+
+        return inflater.inflate(R.layout.fragment_menu, container, false);
+    }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         Button toFragment1 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment1);
         Button toFragment2 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment2);
         Button toFragment3 = (Button) view.findViewById(R.id.fragment_menu_button_to_fragment3);
@@ -48,8 +52,7 @@ public class MenuFragment extends Fragment {
                 ((MainActivity) getActivity()).switchFragment(3);
             }
         });
-
-        return view;
     }
+
 
 }

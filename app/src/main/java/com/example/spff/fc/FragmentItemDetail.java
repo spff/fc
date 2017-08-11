@@ -36,16 +36,39 @@ public class FragmentItemDetail extends Fragment {
     private EditText editText;
     private ImageView imageView;
 
-    public Object cropURI;
-
+    private Uri cropURI;
+    public void setCropURI(Uri cropURI){
+        this.cropURI =cropURI;
+    }
 
     Intent takePictureIntent;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    public static final FragmentItemDetail newInstance(Object cropURI, String text) {
+        FragmentItemDetail fragment = new FragmentItemDetail();
+
+        final Bundle args = new Bundle(1);
+        if(cropURI instanceof Uri) {
+            args.putParcelable("cropURI", (Uri) cropURI);
+        }else {
+            args.putParcelable("cropURI", null);
+        }
+        args.putString("text", text);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     public FragmentItemDetail() {
         // Required empty public constructor
     }
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        cropURI = bundle.getParcelable("cropURI");
+        text = bundle.getString("text");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,8 +110,8 @@ public class FragmentItemDetail extends Fragment {
 
 
 
-        if(cropURI instanceof Uri && new File(((Uri) cropURI).getPath()).exists()) {
-            imageView.setImageURI((Uri) cropURI);
+        if(cropURI != null && new File((cropURI).getPath()).exists()) {
+            imageView.setImageURI(cropURI);
         }else {
             imageView.setImageResource(R.mipmap.ic_launcher);
         }

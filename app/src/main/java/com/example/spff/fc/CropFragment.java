@@ -33,12 +33,24 @@ public final class CropFragment extends Fragment {
     public Uri photoURI;
     CropImageView cropImageView;
 
+    public static final CropFragment newInstance(Uri photoURI) {
+        CropFragment fragment = new CropFragment();
+
+        final Bundle args = new Bundle(1);
+        args.putParcelable("photoURI", photoURI);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     public CropFragment() {
         // Required empty public constructor
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        photoURI = bundle.getParcelable("photoURI");
         setHasOptionsMenu(true);
 
     }

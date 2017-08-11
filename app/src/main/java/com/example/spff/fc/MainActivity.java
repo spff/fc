@@ -26,9 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
         fragment1 = Fragment1.newInstance();
-
-
-
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
 
@@ -37,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
     }
-
-
 
 
     public void switchFragment(int destFrag) {
@@ -69,12 +64,19 @@ public class MainActivity extends AppCompatActivity {
     public void editFragment1List(int position, String string, Object cropURI) {
         fragment1EditPosition = position;
 
-        fragmentItemDetail = new FragmentItemDetail();
-        fragmentItemDetail.text = string;
+        fragmentItemDetail = FragmentItemDetail.newInstance(cropURI, string);
 
-        fragmentItemDetail.cropURI = cropURI;
         manager.beginTransaction()
                 .replace(R.id.center, fragmentItemDetail, "fragmentItemDetail").addToBackStack("fragmentItemDetail")
+                .commit();
+
+    }
+
+    public void cropPhoto(Uri photoURI) {
+
+        cropFragment = CropFragment.newInstance(photoURI);
+        manager.beginTransaction()
+                .replace(R.id.center, cropFragment, "cropFragment").addToBackStack("cropFragment")
                 .commit();
 
     }
@@ -87,18 +89,8 @@ public class MainActivity extends AppCompatActivity {
         fragment1.updateList(fragment1EditPosition, uri, toPut);
     }
 
-    public void cropPhoto(Uri photoURI) {
-
-        cropFragment = new CropFragment();
-        cropFragment.photoURI = photoURI;
-        manager.beginTransaction()
-                .replace(R.id.center, cropFragment, "cropFragment").addToBackStack("cropFragment")
-                .commit();
-
-    }
-
     public void updateFragmentItemDetailURI(Uri cropURI){
-        fragmentItemDetail.cropURI = cropURI;
+        fragmentItemDetail.setCropURI(cropURI);
     }
     
 
