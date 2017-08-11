@@ -25,11 +25,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         manager = getSupportFragmentManager();
-        fragment1 = new Fragment1();
-
-        //TODO make code below pass using Bundle
-        fragment1.itemDataAccessObject = new ItemDataAccessObject(getApplicationContext());
-        fragment1.items = fragment1.itemDataAccessObject.getAll();
+        fragment1 = Fragment1.newInstance();
 
 
 

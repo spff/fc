@@ -43,6 +43,16 @@ public class Fragment1 extends Fragment {
     private GregorianCalendar gregorianCalendar;
     public ItemDataAccessObject itemDataAccessObject;
 
+    public static final Fragment1 newInstance() {
+        Fragment1 fragment = new Fragment1();
+
+        final Bundle args = new Bundle(1);
+        //args.putString("1", );
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     public Fragment1() {
         // Required empty public constructor
     }
@@ -65,6 +75,12 @@ public class Fragment1 extends Fragment {
         items.set(position, item);
 
         adapter.notifyDataSetChanged();
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        itemDataAccessObject = new ItemDataAccessObject(getContext());
+        items = itemDataAccessObject.getAll();
     }
 
     @Override
