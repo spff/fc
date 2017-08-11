@@ -18,7 +18,10 @@ public class MainActivity extends AppCompatActivity {
     public FragmentItemDetail fragmentItemDetail;
     public CropFragment cropFragment;
 
-    private ArrayList<String> photoToDelete = new ArrayList<>();//should be store and restore to SQL
+    private ArrayList<String> photoToDelete = new ArrayList<>();
+    //^^^no need to store to SQL bcuz the time transaction between cropFragment
+    // to fragmentItemDetail.OnViewCreated is short, and the same error might
+    //also occur bcuz those action before writing stuffs into SQL is not atomic.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

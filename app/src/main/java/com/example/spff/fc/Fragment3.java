@@ -24,6 +24,7 @@ public class Fragment3 extends Fragment {
         return inflater.inflate(R.layout.fragment3, container, false);
     }
 
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         getChildFragmentManager()
                 .beginTransaction()

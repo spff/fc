@@ -59,7 +59,11 @@ public final class CropFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_crop, container, false);
+        return inflater.inflate(R.layout.fragment_crop, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
         cropImageView = (CropImageView) view.findViewById(R.id.cropImageView);
 
@@ -73,8 +77,6 @@ public final class CropFragment extends Fragment {
             }
         });
         cropImageView.getCroppedImageAsync();
-
-        return view;
     }
 
     @Override
