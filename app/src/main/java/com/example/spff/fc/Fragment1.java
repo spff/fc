@@ -208,7 +208,7 @@ public class Fragment1 extends Fragment {
         listView.setOnTouchListener(touchListener);
 
 
-        Button addButton = (Button) view.findViewById(R.id.add_button);
+        Button addButton = view.findViewById(R.id.add_button);
         addButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

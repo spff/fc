@@ -26,4 +26,19 @@
         android:text="@string/hi_3"
         android:textSize="36sp" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:nextFocusUp="@+id/button1"
+        android:nextFocusDown="@+id/button2"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:nextFocusUp="@+id/button1"
+        android:nextFocusDown="@+id/button2"/>
+
+
 </LinearLayout>
